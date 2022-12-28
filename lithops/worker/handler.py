@@ -27,7 +27,7 @@ import logging
 import traceback
 import multiprocessing as mp
 from threading import Thread
-from multiprocessing import Process, Pipe
+from multiprocessing import Process, Pipe, set_start_method
 from tblib import pickling_support
 from types import SimpleNamespace
 from multiprocessing.managers import SyncManager
@@ -53,6 +53,8 @@ class ShutdownSentinel:
 
 
 def function_handler(payload):
+    # set_start_method("forkserver")
+
     job = SimpleNamespace(**payload)
     setup_lithops_logger(job.log_level)
 
